@@ -1,20 +1,33 @@
 <?php
 namespace App\Controller;
- 
+
 use App\Controller\AppController;
 use Cake\Validation\Validator;
- 
+
+/*
+ * ユーザ情報管理
+ * ユーザ情報の表示、登録、更新、削除を行う。
+ */
 class UsersController extends AppController
 {
+
+    /*
+     *
+     */
     public function initialize()
     {
         parent::initialize();
     }
 
+
+    /*
+     * ユーザ情報リスト表示
+     */
     public function index()
     {
         $this->set('users', $this->Users->find('all'));
     }
+
 
     /*
      * ユーザ登録画面
@@ -74,5 +87,32 @@ class UsersController extends AppController
         } else {
             $this->set('user', $user);
         }
+    }
+
+
+    /*
+     * ログイン画面
+     */
+    public function login()
+    {
+//        $this->viewBuilder()->layout('login');
+
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__('ユーザコードまたはパスワードが無効です。もう一度お試しください。'));
+        }
+    }
+
+
+    /*
+     * ログアウト
+     */
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
     }
 }

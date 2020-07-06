@@ -17,29 +17,29 @@
         <legend><?= __('Edit User') ?></legend>
         <?php
          // 入力フォーム
-         echo $this->Form->input('user_code', [
+         echo $this->Form->control('user_code', [
             'style' => 'width: 200px;',
             'label' => 'ユーザコード',
             'maxlength' => '6',
             'disabled' => 'disabled'
         ]);
-        echo $this->Form->input('password', [
+        echo $this->Form->control('password', [
             'style' => 'width: 200px;',
             'label' => 'パスワード'
         ]);
-        echo $this->Form->input('user_name', [
+        echo $this->Form->control('user_name', [
             'style' => 'width: 200px;',
             'label' => '氏名'
         ]);
-        echo $this->Form->input('user_kana', [
+        echo $this->Form->control('user_kana', [
             'style' => 'width: 200px;',
             'label' => '氏名カナ'
         ]);
-        echo $this->Form->input('department', [
+        echo $this->Form->control('department', [
             'style' => 'width: 200px;',
             'label' => '部署'
         ]);
-        echo $this->Form->input('birth_date', [
+        echo $this->Form->control('birth_date', [
             'label' => '生年月日',
             'minYear' => (date('Y') - 70),
             'maxYear' => date('Y'),
@@ -47,7 +47,7 @@
             'monthNames' => false, // 月は数字で表示されます。
             'empty' => true
         ]);
-        echo $this->Form->input('join_date', [
+        echo $this->Form->control('join_date', [
             'label' => '入職日',
             'minYear' => (date('Y') - 20),
             'maxYear' => date('Y'),
@@ -55,7 +55,7 @@
             'monthNames' => false, // 月は数字で表示されます。
             'empty' => false
         ]);
-        echo $this->Form->input('retire_date', [
+        echo $this->Form->control('retire_date', [
             'label' => '退職日',
             'minYear' => (date('Y') - 20),
             'maxYear' => date('Y'),
@@ -69,31 +69,6 @@
             ['value' => '2', 'text' => '契約社員'],
             ['value' => '3', 'text' => 'パート']]
         );
-//        echo $this->Form->control('user_code', [
-//            'type' => 'text',
-//            'label' => 'ユーザコード',
-//            'style' => 'width: 200px;'
-//        ]);
-//
-//        echo $this->Form->control('password', [
-//            'type' => 'password',
-//            'label' => 'パスワード',
-//            'style' => 'width: 200px;'
-//        ]);
-//
-//        echo $this->Form->control('user_name', [
-//            'type' => 'text',
-//            'label' => '氏名',
-//            'style' => 'width: 200px;'
-//        ]);
-//
-//
-//        echo $this->Form->control('user_kana');
-//        echo $this->Form->control('department');
-//        echo $this->Form->input('birth_date');
-//        echo $this->Form->input('join_date');
-//        echo $this->Form->input('retire_date');
-//        echo $this->Form->input('employment_status');
     ?>
     </fieldset>
     <?= $this->Form->button('登録', ['type' => 'submit']) ?>
