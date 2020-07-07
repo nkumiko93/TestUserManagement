@@ -1,3 +1,6 @@
+<?php
+    $this->assign('title', 'ユーザ一覧');
+?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -17,8 +20,13 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($users as $user): ?>
-        <tr>
+    <?php foreach ($users as $user):
+        if (empty($user->retire_date)) {
+            echo "<tr>\n";
+        } else {
+            echo "<tr style='background:#CCCCCC;'>\n";
+        }
+    ?>
             <td><?= $this->Html->link(__(h($user->user_code)), ['action' => 'edit', $user->id]) ?></td>
             <td><?= h($user->user_name) ?></td>
             <td><?= h($user->department) ?></td>

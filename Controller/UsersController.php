@@ -10,9 +10,8 @@ use Cake\Validation\Validator;
  */
 class UsersController extends AppController
 {
-
     /*
-     *
+     * 初期設定
      */
     public function initialize()
     {
@@ -21,35 +20,30 @@ class UsersController extends AppController
 
 
     /*
-     * ユーザ情報リスト表示
+     * ユーザ情報一覧画面
      */
     public function index()
     {
-        $this->set('users', $this->Users->find('all'));
+        $this->viewBuilder()->layout('users_default');      // レイアウトを設定
+        $this->set('users', $this->Users->find('all'));     // Usersテーブル全件取得
     }
 
 
     /*
      * ユーザ登録画面
-     * usersテーブルにデータを新規登録する。
+     * Usersテーブルにユーザ情報を新規登録する。
      */
     public function add()
     {
+        $this->viewBuilder()->layout('users_default');  // レイアウトを設定
+
         $user = $this->Users->newEntity();
         $this->set('user', $user);
+//        $errormsg = '入力内容に誤りがあります。';
         if ($this->request->is('post')) {
-            $validator = new Validator();
-            $validator->add(
-                'age','comparison',['rule' =>['comparison','>',20]]
-            );
-            $errors = $validator->errors($this->request->data);
-            if (!empty($errors)){
-                $this->Flash->error('comparison error');
-            } else {
-                $user = $this->Users->patchEntity($user, $this->request->data);
-                if ($this->Users->save($user)) {
-                    return $this->redirect(['action' => 'index']);
-                }
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->Users->save($user)) {
+                return $this->redirect(['action' => 'index']);
             }
         }
     }
@@ -57,19 +51,22 @@ class UsersController extends AppController
 
     /*
      * ユーザ更新画面
-     * usersテーブルのデータを更新する。
+     * Usersテーブルのユーザ情報を更新する。
      */
     public function edit($id = null)
     {
+        $this->viewBuilder()->layout('users_default');  // レイアウトを設定
+
         $user = $this->Users->get($id);
         if ($this->request->is(['post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 return $this->redirect(['action' => 'index']);
             }
-        } else {
-            $this->set('user', $user);
         }
+//        } else {
+            $this->set('user', $user);
+//        }
     }
 
 
@@ -95,14 +92,14 @@ class UsersController extends AppController
      */
     public function login()
     {
-//        $this->viewBuilder()->layout('login');
+        $this->viewBuilder()->layout('users_default');  // レイアウトを設定
 
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
-            }
+            } 
             $this->Flash->error(__('ユーザコードまたはパスワードが無効です。もう一度お試しください。'));
         }
     }

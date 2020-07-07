@@ -56,13 +56,25 @@ class UsersTable extends Table
             ->maxLength('user_code', 6)
             ->requirePresence('user_code', 'create')
             ->notEmptyString('user_code')
-            ->add('user_code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('user_code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table'])
+            ->add('user_code', 'alphaNumeric', [         // ユーザコード: 半角英数のみ
+                'rule' => function ($value, $context) {
+                        return preg_match('/^[a-zA-Z0-9]+$/', $value) ? true : false;
+                    },
+                'message' => 'ユーザコードは半角英数字のみを入力してください。'
+            ]);
 
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->notEmptyString('password')
+            ->add('password', 'alphanumericsymbols', [        // パスワード: 半角英数と一部記号のみ許容
+                    'rule' => function ($value, $context) {
+                        return preg_match('/^[a-zA-Z0-9\x21-\x2f\x3a-\x40\x5b-\x60\x7b-\x7e]+$/', $value) ? true : false;
+                    },
+                'message' => 'パスワードは英数字および一部記号のみ使用可能です。'
+            ]);
 
         $validator
             ->scalar('user_name')
@@ -73,7 +85,13 @@ class UsersTable extends Table
         $validator
             ->scalar('user_kana')
             ->maxLength('user_kana', 255)
-            ->allowEmptyString('user_kana');
+            ->allowEmptyString('user_kana')
+            ->add('user_kana', 'userKana', [         // 氏名カナ: 全角カナ・スペースのみ
+                    'rule' => function ($value, $context) {
+                        return preg_match('/^[ァ-ヾ 　]+$/u', $value) ? true : false;
+                    },
+                'message' => '氏名カナは全角カタカナとスペースのみを入力してください。'
+            ]);
 
         $validator
             ->scalar('department')
