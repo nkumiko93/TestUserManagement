@@ -1,6 +1,20 @@
 <?php
     $this->assign('title', 'ユーザ情報登録画面');
 ?>
+<?= $this->Html->scriptStart(['block' => true]) ?>
+$(function() {
+    $(".user_date").datepicker({
+        showOn: "button",
+        buttonImage: "<?= $this->Url->build('/') ?>images/calendar.gif",
+        buttonImageOnly: true,
+        buttonText: "日付選択",
+        yearRange: "1960:<?= date('Y')?>",
+        changeYear: true,
+        changeMonth: true, monthNamesShort: ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],
+        dateFormat: "yy/mm/dd"
+    });
+});
+<?= $this->Html->scriptEnd() ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -10,6 +24,7 @@
 <div class="users form large-9 medium-8 columns content">
     <h3>ユーザ登録画面</h3>
     <?= $this->Form->create($user) ?>
+<!--    <p>Date: <input type="text" id="datepicker"></p> -->
     <fieldset>
     <?php
         // 入力フォーム
@@ -36,27 +51,21 @@
         ]);
         echo $this->Form->control('birth_date', [
             'label' => '生年月日　　　',
-            'minYear' => (date('Y') - 70),
-            'maxYear' => date('Y'),
-            'orderYear' => 'asc',
-            'monthNames' => false, // 月は数字で表示されます。
-            'empty' => true
+            'type' => 'text',
+            'class' => 'user_date',
+            'style' => 'width: 200px;'
         ]);
         echo $this->Form->control('join_date', [
             'label' => '入職日　　　　',
-            'minYear' => (date('Y') - 20),
-            'maxYear' => date('Y'),
-            'orderYear' => 'asc',
-            'monthNames' => false, // 月は数字で表示されます。
-            'empty' => false
+            'type' => 'text',
+            'class' => 'user_date',
+            'style' => 'width: 200px;'
         ]);
         echo $this->Form->control('retire_date', [
             'label' => '退職日　　　　',
-            'minYear' => (date('Y') - 20),
-            'maxYear' => date('Y'),
-            'orderYear' => 'asc',
-            'monthNames' => false, // 月は数字で表示されます。
-            'empty' => true
+            'type' => 'text',
+            'class' => 'user_date',
+            'style' => 'width: 200px;'
         ]);
         echo $this->Form->label('employment_status', '雇用形態　　　');
         echo $this->Form->radio('employment_status', 
