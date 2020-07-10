@@ -10,12 +10,20 @@ use Cake\Validation\Validator;
  */
 class UsersController extends AppController
 {
+    public $paginate = [
+        'limit' => 5,
+        'order' => [
+            'Users.user_code' => 'asc'
+        ]
+    ];
+
     /*
      * 初期設定
      */
     public function initialize()
     {
         parent::initialize();
+        $this->loadComponent('Paginator');
     }
 
 
@@ -26,7 +34,7 @@ class UsersController extends AppController
     {
         $this->viewBuilder()->layout('users_default');      // レイアウトを設定
 
-        $users = $this->Users->find('all');         // Usersテーブル全件取得
+        $users = $this->paginate($this->Users);     // Usersテーブル全データ取得
         $this->set(compact('users'));
     }
 
