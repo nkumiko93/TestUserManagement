@@ -13,7 +13,7 @@ class UsersController extends AppController
     public $paginate = [
         'limit' => 5,
         'order' => [
-            'Users.user_code' => 'asc'
+            'Users.id' => 'asc'
         ]
     ];
 
@@ -106,7 +106,7 @@ class UsersController extends AppController
             if ($user) {
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
-            } 
+            }
             $this->Flash->error(__('ユーザコードまたはパスワードが無効です。もう一度お試しください。'));
         }
     }
