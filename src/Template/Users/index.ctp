@@ -44,7 +44,7 @@
             <?= $this->Paginator->next(__('次へ') . ' >') ?>
             <?= $this->Paginator->last(__('最後へ') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('{{page}} / {{pages}} ページ,　{{current}} / {{count}} 件')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('{{page}} / {{pages}} ページ,　{{start}} - {{end}} / {{count}} 件')]) ?></p>
     </div>
 <?php
     echo $this->Form->create($user, ['action' => 'add', 'type' => 'get']) . "\n";
