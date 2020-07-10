@@ -25,7 +25,9 @@ class UsersController extends AppController
     public function index()
     {
         $this->viewBuilder()->layout('users_default');      // レイアウトを設定
-        $this->set('users', $this->Users->find('all'));     // Usersテーブル全件取得
+
+        $users = $this->Users->find('all');         // Usersテーブル全件取得
+        $this->set(compact('users'));
     }
 
 
@@ -38,14 +40,13 @@ class UsersController extends AppController
         $this->viewBuilder()->layout('users_default');  // レイアウトを設定
 
         $user = $this->Users->newEntity();
-        $this->set('user', $user);
-//        $errormsg = '入力内容に誤りがあります。';
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 return $this->redirect(['action' => 'index']);
             }
         }
+        $this->set(compact('user'));
     }
 
 
@@ -59,14 +60,12 @@ class UsersController extends AppController
 
         $user = $this->Users->get($id);
         if ($this->request->is(['post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 return $this->redirect(['action' => 'index']);
             }
         }
-//        } else {
-            $this->set('user', $user);
-//        }
+        $this->set(compact('user'));
     }
 
 
