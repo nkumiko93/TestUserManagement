@@ -394,10 +394,9 @@ fieldset legend {
     line-height: 2rem;
 }
 
-.form button[type="submit"] {
 /*
+.form button[type="submit"] {
     float: right;
-*/
     text-transform: uppercase;
     box-shadow: none;
 }
@@ -410,6 +409,7 @@ fieldset legend {
 button {
     background: #966600;
 }
+*/
 
 div.message {
     text-align: center;
