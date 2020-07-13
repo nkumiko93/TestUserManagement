@@ -8,8 +8,8 @@
     </ul>
 </nav>
 <div class="users index large-9 medium-8 columns content">
-    <h3>ユーザリスト画面</h3>
-    <table>
+    <h1 class="h3 mb-3 font-weight-bold text-success">ユーザリスト画面</h1>
+    <table class="table table-bordered">
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('user_code', 'ユーザコード') ?></th>
@@ -24,7 +24,7 @@
         if (empty($user->retire_date)) {
             echo "<tr>\n";
         } else {
-            echo "<tr style='background:#CCCCCC;'>\n";
+            echo "<tr class='table-secondary'>\n";
         }
     ?>
             <td><?= $this->Html->link(__(h($user->user_code)), ['action' => 'edit', $user->id]) ?></td>
@@ -48,7 +48,7 @@
     </div>
 <?php
     echo $this->Form->create($user, ['action' => 'add', 'type' => 'get']) . "\n";
-    echo $this->Form->button('新規登録', ['type' => 'submit']) . "\n";
+    echo $this->Form->button('新規登録', ['type' => 'submit', 'class' => 'btn btn-primary']) . "\n";
     echo $this->Form->end() . "\n";
 ?>
 </div>

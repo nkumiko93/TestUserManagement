@@ -16,7 +16,7 @@
     </ul>
 </nav>
 <div class="users form large-9 medium-8 columns content">
-    <h3>ユーザ更新画面</h3>
+    <h1 class="h3 mb-3 font-weight-bold text-success">ユーザ更新画面</h1>
     <?= $this->Form->create($user) ?>
 
 <?php

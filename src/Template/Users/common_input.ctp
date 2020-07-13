@@ -3,6 +3,12 @@
  * ユーザ情報 入力（登録・更新）画面 view 共通
  */
 ?>
+<style type="text/css">
+label {
+    width: 110px;
+}
+</style>
+
 <?= $this->Html->scriptStart(['block' => true]) ?>
 $(function() {
     $(".user_date").datepicker({
@@ -22,13 +28,13 @@ $(function() {
     if ($screenType == 'add') {
         echo $this->Form->control('user_code', [
             'style' => 'width: 200px;',
-            'label' => 'ユーザコード　',
+            'label' => 'ユーザコード',
             'maxlength' => '6'
         ]);
     } elseif ($screenType == 'edit') {
         echo $this->Form->control('user_code', [
             'style' => 'width: 200px;',
-            'label' => 'ユーザコード　',
+            'label' => 'ユーザコード',
             'maxlength' => '6',
             'disabled' => 'disabled'
         ]);
@@ -36,45 +42,52 @@ $(function() {
 
     echo $this->Form->control('password', [
         'style' => 'width: 200px;',
-        'label' => 'パスワード　　'
+        'label' => 'パスワード'
     ]);
     echo $this->Form->control('user_name', [
         'style' => 'width: 200px;',
-        'label' => '氏名　　　　　'
+        'label' => '氏名'
     ]);
     echo $this->Form->control('user_kana', [
         'style' => 'width: 200px;',
-        'label' => '氏名カナ　　　'
+        'label' => '氏名カナ'
     ]);
     echo $this->Form->control('department', [
         'style' => 'width: 200px;',
-        'label' => '部署　　　　　'
+        'label' => '部署'
     ]);
     echo $this->Form->control('birth_date', [
-        'label' => '生年月日　　　',
+        'label' => '生年月日',
         'type' => 'text',
         'class' => 'user_date',
         'style' => 'width: 200px;'
     ]);
     echo $this->Form->control('join_date', [
-        'label' => '入職日　　　　',
+        'label' => '入職日',
         'type' => 'text',
         'class' => 'user_date',
         'style' => 'width: 200px;'
     ]);
     echo $this->Form->control('retire_date', [
-        'label' => '退職日　　　　',
+        'label' => '退職日',
         'type' => 'text',
         'class' => 'user_date',
         'style' => 'width: 200px;'
     ]);
-    echo $this->Form->label('employment_status', '雇用形態　　　');
-    echo $this->Form->radio('employment_status', 
-        [['value' => '1', 'text' => '正社員　'],
-        ['value' => '2', 'text' => '契約社員　'],
+    echo $this->Form->label('employment_status', '雇用形態');
+    echo $this->Form->radio('employment_status',
+        [['value' => '1', 'text' => '正社員'],
+        ['value' => '2', 'text' => '契約社員'],
         ['value' => '3', 'text' => 'パート']]
     );
 ?>
 </fieldset>
-<?= $this->Form->button('登録', ['type' => 'submit']) ?>　
-<?= $this->Form->button('戻る', ['onclick' => 'history.back()', 'type' => 'button']) ?>
+<?= $this->Form->button('登録', [
+    'type' => 'submit',
+    'class' => 'btn btn-primary'
+    ]) ?>　
+<?= $this->Form->button('戻る', [
+    'onclick' => 'history.back()',
+    'type' => 'button',
+    'class' => 'btn btn-primary'
+    ]) ?>
