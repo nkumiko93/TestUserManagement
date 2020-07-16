@@ -105,7 +105,14 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+
+                $deleteFlag = $this->Auth->user('delete_f');
+                if ($deleteFlag != null && $deleteFlag == 1) {      // 削除済みユーザ
+                    $this->Flash->error(__('無効なユーザーです。'));
+                    return $this->logout();
+                } else {
+                    return $this->redirect($this->Auth->redirectUrl());
+                }
             }
             $this->Flash->error(__('ユーザコードまたはパスワードが無効です。もう一度お試しください。'));
         }
