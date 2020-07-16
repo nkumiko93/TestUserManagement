@@ -74,12 +74,22 @@ $(function() {
         'class' => 'user_date',
         'style' => 'width: 200px;'
     ]);
+
+    echo "<div>";
     echo $this->Form->label('employment_status', '雇用形態');
     echo $this->Form->radio('employment_status',
         [['value' => '1', 'text' => '正社員'],
         ['value' => '2', 'text' => '契約社員'],
         ['value' => '3', 'text' => 'パート']]
     );
+    echo "</div>";
+
+    echo "<div>";
+    echo $this->Form->label('delete_f', '削除フラグ');
+    echo $this->Form->checkbox('delete_f', [
+        'value' => '1'
+    ]);
+    echo "</div>";
 ?>
 </fieldset>
 <?= $this->Form->button('登録', [
