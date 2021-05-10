@@ -43,6 +43,7 @@ class User extends Entity
         'employment_status' => true,
         'created' => true,
         'updated' => true,
+        'delete_f' => true,
     ];
 
     /**

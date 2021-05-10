@@ -67,6 +67,7 @@ class AppController extends Controller
             ]
         ]);
 
+        // 認証処理の例外ページ
         $this->Auth->allow(['login']);
         /* add K.Nagayama #4136 end */
 

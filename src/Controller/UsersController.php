@@ -10,12 +10,20 @@ use Cake\Validation\Validator;
  */
 class UsersController extends AppController
 {
+    public $paginate = [
+        'limit' => 5,
+        'order' => [
+            'Users.id' => 'asc'
+        ]
+    ];
+
     /*
      * 初期設定
      */
     public function initialize()
     {
         parent::initialize();
+        $this->loadComponent('Paginator');
     }
 
 
@@ -25,7 +33,9 @@ class UsersController extends AppController
     public function index()
     {
         $this->viewBuilder()->layout('users_default');      // レイアウトを設定
-        $this->set('users', $this->Users->find('all'));     // Usersテーブル全件取得
+
+        $users = $this->paginate($this->Users);     // Usersテーブル全データ取得
+        $this->set(compact('users'));
     }
 
 
@@ -38,14 +48,13 @@ class UsersController extends AppController
         $this->viewBuilder()->layout('users_default');  // レイアウトを設定
 
         $user = $this->Users->newEntity();
-        $this->set('user', $user);
-//        $errormsg = '入力内容に誤りがあります。';
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 return $this->redirect(['action' => 'index']);
             }
         }
+        $this->set(compact('user'));
     }
 
 
@@ -59,14 +68,12 @@ class UsersController extends AppController
 
         $user = $this->Users->get($id);
         if ($this->request->is(['post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 return $this->redirect(['action' => 'index']);
             }
         }
-//        } else {
-            $this->set('user', $user);
-//        }
+        $this->set(compact('user'));
     }
 
 
@@ -98,8 +105,15 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            } 
+
+                $deleteFlag = $this->Auth->user('delete_f');
+                if ($deleteFlag != null && $deleteFlag == 1) {      // 削除済みユーザ
+                    $this->Flash->error(__('無効なユーザーです。'));
+                    return $this->logout();
+                } else {
+                    return $this->redirect($this->Auth->redirectUrl());
+                }
+            }
             $this->Flash->error(__('ユーザコードまたはパスワードが無効です。もう一度お試しください。'));
         }
     }

@@ -1,7 +1,6 @@
 <?php
 /**
- * ログインページのレイアウト定義ファイル
- * update 2020.07.06 K.Nagayama
+ * ユーザ管理システム: ログインページのレイアウト定義ファイル
  */
 
 /**
@@ -21,41 +20,40 @@
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+<!-- <html> -->
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ユーザ管理システム: <?= $this->fetch('title') ?></title>
-<!--
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
--->
+
     <?= $this->Html->meta('icon') ?>
 
+    <!-- Bootstrap v4.5.0 start -->
+    <?= $this->Html->css('bootstrap.min') ?>
+    <!-- Bootstrap v4.5.0 end -->
+
     <?= $this->Html->css('base_users.css') ?>
-    <?= $this->Html->css('base_style.css') ?>
+    <?= $this->Html->css('style_users.css') ?>
+
+    <!-- jQuery ui: ver.1.12.1 start -->
+    <?= $this->Html->css('jquery-ui.min.css') ?>
+    <?= $this->Html->css('jquery-ui.theme.min.css') ?>
+
+    <?= $this->Html->script('jquery-3.5.1.min') ?>
+    <?= $this->Html->script('jquery-ui.min') ?>
+    <?= $this->Html->script('ui.datepicker-ja') ?>
+    <!-- jQuery ui: ver.1.12.1 end -->
+
+    <!-- Bootstrap v4.5.0 start -->
+    <?= $this->Html->script('bootstrap.bundle.min') ?>
+    <!-- Bootstrap v4.5.0 end -->
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-<!--
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><?= $this->fetch('title') ?></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-            </ul>
-        </div>
-    </nav> -->
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
